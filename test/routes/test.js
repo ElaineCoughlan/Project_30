@@ -14,7 +14,7 @@ var data = require('../../models/entries');
 
   beforeEach(function(){
     while(data.length > 4){
-     mongoose.connection.db.entries.deleteMany([{"NewPart": "INTEL i7 4th gen"}]);
+     mongoose.connection.db.deleteMany([{"NewPart": "INTEL i7 4th gen"}]);
     };
   });
 
@@ -35,7 +35,7 @@ var data = require('../../models/entries');
              Likey : entry.Likey,  
           NoLikey: entry.NoLikey}
       });
-     // expect(result).to.include( {Device : "HP", NewPart: "GTX_700", OldPart : "GTX_900", NoLikey : 0, Likey : 0  } );
+      expect(result).to.include( {Device : "HP", NewPart: "GTX_900", OldPart : "GTX_900", NoLikey : 0, Likey : 0  } );
       done();
   });
               });
