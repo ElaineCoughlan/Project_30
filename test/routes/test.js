@@ -6,6 +6,7 @@ var expect = chai.expect;
 chai.use(chaiHttp);
 chai.use(require('chai-things'));
 var _ = require('lodash' );
+var mongoose = require('mongoose');
 
 var data = require('../../models/entries')
 
@@ -13,7 +14,7 @@ var data = require('../../models/entries')
 
   beforeEach(function(){
     while(data.length > 4){
-      mongoose.connection.collections.Entries.delete([{"NewPart": "INTEL i7 4th gen"}]);
+      data.model.deleteMany([{"NewPart": "INTEL i7 4th gen"}]);
     };
   });
 
@@ -64,7 +65,8 @@ var data = require('../../models/entries')
             .put('/entries/5a00805a58f23cfd7c3c4a96/Likey')
             .end(function(err, res) {
                 expect(res).to.have.status(200);
-                //expect(res.body).be.be.a('array');
+                expect(res.body).be.be.a('object');
+               // expect(res.body).to.have.property('message').eql('Entry liked')
                 var result = _.map(res.body, function (entries) {
                     return {// _id: entries._id, 
                         Likey: entries.Likey };
@@ -81,6 +83,7 @@ var data = require('../../models/entries')
             .put('/entries/5a00805a58f23cfd7c3c4a96/NoLikey')
             .end(function(err, res) {
                 expect(res).to.have.status(200);
+               // expect(res.body).to.have.property('message').eql('Entry disliked')
                 var result = _.map(res.body, function (entries) {
                     return {
                         NoLikey: entries.NoLikey };
@@ -88,9 +91,21 @@ var data = require('../../models/entries')
                 done();
             });
     });
+
 }); //end of PUT/entries
-
-
+describe('DELETE /entries/:id', function () {
+    it('should delete a donation', function(done) {
+        chai.request(server)
+            .delete('/entries/5a01e28a40781e2b80fde6da')
+            .end(function(err, res) {
+                expect(res).to.have.status(200);
+                expect(res.body).to.be.a('object');
+                expect(res.body).to.have.property('message').eql('Entry Deleted')
+                
+                done();
+            });
+});
+    });
 
   }); //end of Entries
 
