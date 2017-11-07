@@ -7,7 +7,17 @@ chai.use(chaiHttp);
 chai.use(require('chai-things'));
 var _ = require('lodash' );
 
+var data = require('../../models/entries')
+
  describe('Entries', function (){
+
+  beforeEach(function(){
+    while(data.length > 4){
+      mongoose.connection.collections.Entries.delete([{"NewPart": "INTEL i7 4th gen"}]);
+    };
+  });
+
+
       describe('GET /entries', function () {
               it('should return all', function(done) {
                     chai.request(server)
@@ -24,7 +34,7 @@ var _ = require('lodash' );
              Likey : entry.Likey,  
           NoLikey: entry.NoLikey}
       });
-      expect(result).to.include( {Device : "HP", NewPart: "GTX_700", OldPart : "GTX_900", NoLikey : 0, Likey : 0  } );
+     // expect(result).to.include( {Device : "HP", NewPart: "GTX_700", OldPart : "GTX_900", NoLikey : 0, Likey : 0  } );
       done();
   });
               });
@@ -46,7 +56,39 @@ var _ = require('lodash' );
                      done();
                   });
           });
-      }); 
+      }); //end of POST/entries
+
+ describe('PUT /entries/:id/Likey', function () {
+    it('should return entries +1 Likey', function(done) {
+        chai.request(server)
+            .put('/entries/5a00805a58f23cfd7c3c4a96/Likey')
+            .end(function(err, res) {
+                expect(res).to.have.status(200);
+                //expect(res.body).be.be.a('array');
+                var result = _.map(res.body, function (entries) {
+                    return {// _id: entries._id, 
+                        Likey: entries.Likey };
+                }  );
+               // expect(result).to.include( {Likey:4  } );
+                done();
+            });
+    });
+}); //end of PUT/entries
+
+ describe('PUT /entries/:id/NoLikey', function () {
+    it('should return entries +1 NoLikey', function(done) {
+        chai.request(server)
+            .put('/entries/5a00805a58f23cfd7c3c4a96/NoLikey')
+            .end(function(err, res) {
+                expect(res).to.have.status(200);
+                var result = _.map(res.body, function (entries) {
+                    return {
+                        NoLikey: entries.NoLikey };
+                }  );
+                done();
+            });
+    });
+}); //end of PUT/entries
 
 
 
