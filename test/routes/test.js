@@ -25,10 +25,30 @@ var _ = require('lodash' );
           NoLikey: entry.NoLikey}
       });
       expect(result).to.include( {Device : "HP", NewPart: "GTX_700", OldPart : "GTX_900", NoLikey : 0, Likey : 0  } );
-     
       done();
   });
               });
-        });
+        }); //End of GET/entries
 
-  });
+ describe('POST /entries', function () {
+          it('should return message entry was added', function(done) {
+              var entry = { 
+                  Device : "MSI", 
+                  NewPart: "INTEL i7 4th gen",
+                  OldPart : "INTEL i7 6th gen"
+                };
+                chai.request(server)
+                  .post('/entries')
+                  .send(entry)
+                  .end(function(err, res) {
+                       expect(res).to.have.status(200);
+               expect(res.body).to.have.property('message').equal('Entry Added' ) ;
+                     done();
+                  });
+          });
+      }); 
+
+
+
+  }); //end of Entries
+
