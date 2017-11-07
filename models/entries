@@ -1,0 +1,10 @@
+var mongoose = require('mongoose');
+
+var EntriesSchema = new mongoose.Schema({
+    NewPart: String,
+    OldPart: String,
+    Device: String,
+    Likey: {type:Number,default:0},
+    NoLikey: {type:Number,default:0}
+});
+module.exports =mongoose.model('Entries',EntriesSchema);

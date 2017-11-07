@@ -1,0 +1,101 @@
+var Entries = require('../models/entries');
+var express = require('express');
+var router = express.Router();
+var mongoose = require('mongoose');
+
+mongoose.connect('mongodb://localhost:27017/entries');
+var db = mongoose.connection;
+
+db.on('error',function(err){
+   console.log('connection error', err);
+});
+
+db.once('open', function () {
+    console.log('connected to database');
+});
+
+router.findAll = function(req,res){
+Entries.find(function(err,entries){
+    if(err)
+        res.json({message:'Nothing Found',errmessage:err});
+    else
+        res.json(entries);
+})
+};
+
+router.findOne = function (req,res){
+   Entries.find({"_id": req.params.id},function (err,entries) {
+       if(err)
+           res.json({message:'Entry NOT found',errmessage:err});
+       else
+           res.json(entries);
+   })
+};
+
+router.addEntry = function(req,res) {
+    var entry = new Entries();
+
+    entry.OldPart = req.body.OldPart;
+    entry.NewPart = req.body.NewPart;
+    entry.Device = req.body.Device;
+
+    console.log('Adding entry' + JSON.stringify(entry));
+
+    entry.save(function (err) {
+        if (err)
+            res.send(err);
+        else
+            res.json({message: 'Entry Added', data: entry})
+    });
+  
+};
+
+router.deleteEntry = function (req,res) {
+
+    Entries.findByIdAndRemove(req.params.id, function (err) {
+        if(err)
+            res.send(err);
+        else
+            res.json({message:'Entry Deleted'});
+
+    });
+};
+
+router.upVote = function(req, res) {
+
+    Entries.findById(req.params.id, function(err,entry) {
+        if (err)
+            res.send(err);
+        else {
+            entry.Likey += 1;
+            entry.save(function (err) {
+                if (err)
+                    res.send(err);
+                else
+                    res.json({ message: 'Entry liked', data: entry });
+            });
+        }
+    });
+
+};
+
+router.downVote = function (req,res) {
+
+    Entries.findById(req.params.id, function(err,entry){
+        if(err)
+            res.send(err);
+        else {
+            entry.NoLikey += 1;
+            entry.save( function(err){
+                if(err)
+                    res.send(err);
+                else
+                    res.json({messge:'Entry disliked', data:entry})
+            })
+        }
+    })
+
+};
+
+
+module.exports=router;
