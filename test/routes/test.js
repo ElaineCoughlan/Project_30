@@ -94,7 +94,7 @@ var data = require('../../models/entries');
 
 }); //end of PUT/entries
 describe('DELETE /entries/:id', function () {
-    it('should delete a donation', function(done) {
+    it('should delete an entry', function(done) {
         chai.request(server)
             .delete('/entries/5a01e28a40781e2b80fde6da')
             .end(function(err, res) {
