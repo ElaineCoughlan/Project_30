@@ -1,4 +1,7 @@
-var app = angular.module('DonationWebApp', ['ngRoute']);
+var app = angular.module('AdviceApp', ['ngRoute']);
+require('angular');
+require('angular-route');
+require('.controllers/index')
 
 app.config(function($routeProvider) {
         $routeProvider
@@ -12,13 +15,13 @@ app.config(function($routeProvider) {
              // route for the donate page
             .when('/donate', {
                 templateUrl : 'public/pages/entry.ejs',
-                controller  : 'donateController'
+                controller  : 'entryController'
             })
 
              // route for the donations page
             .when('/donations', {
                 templateUrl : 'public/pages/entries.ejs',
-                controller  : 'donationsController'
+                controller  : 'entriesController'
             });
     });
 
