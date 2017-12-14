@@ -5,19 +5,19 @@ app.config(function($routeProvider) {
 
             // route for the home page
             .when('/', {
-                templateUrl : 'pages/home.ejs',
+                templateUrl : 'public/pages/home.ejs',
                 controller  : 'mainController'
             })
 
              // route for the donate page
             .when('/donate', {
-                templateUrl : 'pages/entry.ejs',
+                templateUrl : 'public/pages/entry.ejs',
                 controller  : 'donateController'
             })
 
              // route for the donations page
             .when('/donations', {
-                templateUrl : 'pages/entries.ejs',
+                templateUrl : 'public/pages/entries.ejs',
                 controller  : 'donationsController'
             });
     });
