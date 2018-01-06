@@ -1,0 +1,9 @@
+/node_modules
+/**/.DS_S*
+.DS_S*
+*.log
+/coverage
+/.idea
+package-lock.json
+/build
+/dist

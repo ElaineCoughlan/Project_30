@@ -1,14 +1,14 @@
 var app = angular.module('AdviceApp', ['ngRoute']);
 require('angular');
 require('angular-route');
-require('.controllers/index')
+require('./controllers/index')
 
 require('../../node_modules/bootstrap/dist/css/bootstrap.css' );
 require('../../node_modules/font-awesome/css/font-awesome.css' );
 require('../stylesheets/style.css');
 
-app.config(function($routeProvider) {
-        $routeProvider
+app.config(['$routeProvider', function($routeProvider) { 
+    $routeProvider
 
             // route for the home page
             .when('/', {
@@ -27,7 +27,7 @@ app.config(function($routeProvider) {
                 templateUrl : 'public/pages/entries.ejs',
                 controller  : 'entriesController'
             });
-    });
+    }]);
 
 
   

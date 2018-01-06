@@ -1,8 +1,8 @@
 var app = angular.module('Review');
 
 
-app.controller('mainController', ['$scope', function($scope) {
+function mainController($scope) {
     // create a message to display in our view
       $scope.message = 'Need some help?';
-     }
-  ]);
+     };
+     module.exports = mainController;

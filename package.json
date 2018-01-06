@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "build": "webpack"
+    "build": "webpack",
+    "start-prod": "NODE_ENV=prod node bin/www",
+    "build-prod": "webpack --config webpack-prod.config.js"
   },
   "dependencies": {
     "angular": "^1.3.10",
@@ -26,6 +28,7 @@
     "babel-loader": "^6.4.1",
     "clean-webpack-plugin": "^0.1.17",
     "css-loader": "^0.24.0",
+    "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "html-webpack-plugin": "^2.30.1",
     "style-loader": "^0.13.1",
