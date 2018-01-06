@@ -1,5 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
 	debug:true,
@@ -12,6 +14,12 @@ module.exports = {
 		path: path.join(__dirname,'build'),
 		publicPath: 'http://localhost:3000/',
 		filename: 'bundle.js'},
+
+		plugins: [
+            new CleanWebpackPlugin(['build']),
+            new HtmlWebpackPlugin({ inject: 'head',
+                 template: __dirname + "/public/index.tmpl.html"})
+        ],
 
 		module:{
 		loaders:[

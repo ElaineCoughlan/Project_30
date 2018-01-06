@@ -1,0 +1,39 @@
+<html ng-app="AdviceApp >
+<head>
+      <title>Advice App</title>
+      <script src="../build/bundle.js"></script>
+    </head>
+
+  <body ng-controller="mainController">
+<!-- NAVBAR -->
+        
+            <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#/"><i class="fa fa-pied-piper-alt fa-lg" style="color: white;"></i> Advice Web App</a>
+                </div>
+            
+                <ul class="nav navbar-nav navbar-right">
+                  <div class="navbar-right">
+              <button type="button" class="btn btn-default navbar-btn btn-success">Register</button>
+              <button type="button" class="btn btn-default navbar-btn btn-primary">Log In</button>
+           </div>
+                    <li><a href="#/">Home</a></li>
+                    <li><a href="#entry">Ask for advice</a></li>
+                    <li><a href="#entries"> List of all questions</a></li>
+                    
+                </ul>
+
+            </div>
+            </nav>
+       
+
+ <div id="main">
+
+  <div ng-view></div>
+
+</div> <!-- End of main div -->
+   <footer>
+  </footer>
+</body>
+</html>
